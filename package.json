@@ -1,0 +1,20 @@
+{
+  "name": "testerc20token",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "homepage": "https://samy356.github.io/2D-Solar-System",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "gh-pages": "^5.0.0",
+    "hardhat": "^2.14.0"
+  }
+}

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://samy356.github.io/2D-Solar-System",
+  "homepage": "https://samy356.github.io/TOKEN-WALLET",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "predeploy": "npm run build",
@@ -14,7 +14,11 @@
   "license": "ISC",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "dotenv": "^16.0.3",
     "gh-pages": "^5.0.0",
     "hardhat": "^2.14.0"
+  },
+  "dependencies": {
+    "web3": "^1.9.0"
   }
 }

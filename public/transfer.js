@@ -23,17 +23,19 @@ async function transfer(){
         console.log(`Balance: ${Balance}`);
 
         // Get the owner of wallet contract deployed.
-        const _EKWowner = await walletContract.methods.owner().call();
+        const _EKWowner = await walletContract.methods.OwnerAddress().call({from: process.env.MY_ACCOUNT_ADDRESS});
         console.log(_EKWowner);
 
-        // Get the deployed wallet contract balance. (Dont call contract using privatekey but use account address.)
-        await walletContract.methods.Balanceof().call({from: process.env.MY_ACCOUNT_ADDRESS}).then(console.log);
+        await walletContract.methods.MapToken(tokenAddress).call({from: process.env.MY_ACCOUNT_ADDRESS}).then(console.log("Done"));
 
-        const _EKWbalance = await walletContract.methods.Balanceof().call({from: process.env.MY_ACCOUNT_ADDRESS});
+        // Get the deployed wallet contract balance. (Dont call contract using privatekey but use account address.)
+        await walletContract.methods.Balanceof(tokenAddress).call({from: process.env.MY_ACCOUNT_ADDRESS}).then(console.log);
+
+        const _EKWbalance = await walletContract.methods.Balanceof(tokenAddress).call({from: process.env.MY_ACCOUNT_ADDRESS});
         console.log(`Wallet Contract balance: ${_EKWbalance}`);
         
         // Submit transaction from wallet contract.
-        const SubmitTx = await walletContract.methods.SubmitTransaction(process.env.RECIPIENT_ADDRESS, 100)
+        const SubmitTx = await walletContract.methods.SubmitTransaction(tokenAddress, process.env.RECIPIENT_ADDRESS, 100)
             .send({from: process.env.MY_ACCOUNT_ADDRESS}).on('receipt', function(receipt){console.log(receipt);});
 
         // walletContract.events.submitTransaction()
@@ -50,30 +52,6 @@ async function transfer(){
             
             console.log('Events:', events);
         }
-
-        // const ConfirmTx = await walletContract.methods.ConfirmTransaction(0)
-        //     .call({from: process.env.MY_ACCOUNT_ADDRESS});
-
-        // const ExecuteTx = await walletContract.methods.ExecuteTransaction(0)
-        //     .send({from: process.env.MY_ACCOUNT_ADDRESS});
-
-        //await walletContract.methods.Transactions(0).call({from: process.env.MY_ACCOUNT_ADDRESS}).then(console.log);
-
-        //const withdraw = await walletContract.methods.Withdraw().sendTransaction({from: process.env.MY_META_WALLET});
-
-        // const submitTx = await walletContract.methods.SubmitTransaction(process.env.RECIPIENT_ADDRESS, 900);//.send({ from: process.env.MY_META_WALLET, gas:200000 });
-        // console.log('Transaction submitted:', submitTx.transactionHash);
-        // const events = await walletContract.getPastEvents('submitTransaction',{ fromBlock: 0, toBlock: 'latest' });
-        //     //.on('data', async function (event){
-        //         const _txIndex = event.returnValues.txIndex;
-        //         console.log(_txIndex);
-
-        //         const confirmTX = await walletContract.methods.ConfirmTransaction(_txIndex);//.send({ from: process.env.MY_META_WALLET });
-        //         console.log("TX Confirmed");
-
-        //         const exeTx = await walletContract.methods.ExecuteTransaction(_txIndex);//.send({ from: process.env.MY_META_WALLET });
-        //         console.log("executed");
-        //     //})
           
     }catch (err){
         console.error(err);
